@@ -1,10 +1,29 @@
 import mongoose from "mongoose";
-import Flashcard from "../../models/flashcard";
+// import Flashcard from "../../models/flashcard";
 
 mongoose.connect("mongodb://localhost:27017", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+const flashcardSchema = new mongoose.Schema({
+  question: {
+    type: String,
+    required: true,
+  },
+  answer: {
+    type: String,
+    required: true,
+  },
+});
+
+let Flashcard;
+
+if (mongoose.models.Flashcard) {
+  Flashcard = mongoose.model("Flashcard");
+} else {
+  Flashcard = mongoose.model("Flashcard", flashcardSchema);
+}
 
 export default async function handler(req, res) {
   console.log("in handler");
