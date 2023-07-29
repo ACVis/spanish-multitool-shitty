@@ -63,3 +63,36 @@ You can now use the MongoDB shell commands to interact with the MongoDB database
 Remember to replace your-container-name with the actual name or ID of your MongoDB container. If you're unsure about the container name or ID, you can check it using the docker ps command.
 
 Running a terminal session inside a Docker container allows you to execute commands and interact with the containerized environment, which can be useful for troubleshooting, running specific commands, or exploring the containerized system.
+
+To view the contents of a database named "test" using the MongoDB command line, you can follow these steps:
+
+List the databases. Confirm that `test` is there.
+```
+show dbs
+```
+
+From inside the MongoDB shell, switch to the "test" database by running the following command:
+
+
+```
+use test
+```
+After switching to the "test" database, you can view the collections within the database by executing the show collections command:
+
+
+```
+show collections
+```
+This command will list all the collections present in the "test" database.
+
+To view the documents within a specific collection, you can use the find() method. For example, if you have a collection named "cards," you can view its documents by running the following command:
+
+
+```lua
+db.cards.find()
+```
+This command will display all the documents in the "cards" collection. Alternatively, you can prettify it. Like so: `db.cards.find().pretty()`
+
+By following these steps, you can see the contents of the "test" database and its collections using the MongoDB command line interface.
+
+The `test` database is for dev and flashcards is maybe for production? Either way, right now it's using `test`.
