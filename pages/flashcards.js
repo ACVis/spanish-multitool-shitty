@@ -1,4 +1,13 @@
 import { useState, useEffect } from "react";
+import fs from "fs";
+
+const frontTemplate = fs.readFileSync("path/to/frontTemplate.html", "utf8");
+const backTemplate = fs.readFileSync("path/to/backTemplate.html", "utf8");
+
+export const applyFrontTemplate = (content) =>
+  frontTemplate.replace("{{content}}", content);
+export const applyBackTemplate = (content) =>
+  backTemplate.replace("{{content}}", content);
 
 export default function FlashcardsPage() {
   const [flashcards, setFlashcards] = useState([]);

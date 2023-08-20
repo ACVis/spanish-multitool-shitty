@@ -6,15 +6,25 @@ mongoose.connect("mongodb://localhost:27017", {
   useUnifiedTopology: true,
 });
 
+// const flashcardSchema = new mongoose.Schema({
+//   question: {
+//     type: String,
+//     required: true,
+//   },
+//   answer: {
+//     type: String,
+//     required: true,
+//   },
+// });
+
 const flashcardSchema = new mongoose.Schema({
-  question: {
-    type: String,
-    required: true,
-  },
-  answer: {
-    type: String,
-    required: true,
-  },
+  frontHtml: String,
+  backHtml: String,
+  tags: [String],
+  deck: String,
+  answerTime: Number,
+  createdAt: Date,
+  updatedAt: Date,
 });
 
 let Flashcard;
