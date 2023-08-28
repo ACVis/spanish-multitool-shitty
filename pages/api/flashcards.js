@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 // import Flashcard from "../../models/flashcard";
-// import connection from "../../utils/connectToDb";
+import { connect } from "@/lib/connectToDb";
 
 console.log("NODE_ENV: ", process.env.NODE_ENV);
 
@@ -15,10 +15,11 @@ if (process.env.NODE_ENV === "test") {
   //   useUnifiedTopology: true,
   // });
   // db = await connection.db();
-  mongoose.connect(global.__MONGO_URI__, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  // mongoose.connect(global.__MONGO_URI__, {
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true,
+  // });
+  connection = connect;
 } else {
   connection = mongoose.connect("mongodb://localhost:27017", {
     useNewUrlParser: true,

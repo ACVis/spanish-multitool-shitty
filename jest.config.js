@@ -11,7 +11,7 @@
 // };
 
 // jest.config.mjs
-const config = {
+module.exports = {
   // preset: "@shelf/jest-mongodb",
   verbose: true,
   // collectCoverage: true,
@@ -24,6 +24,7 @@ const config = {
   //     statements: 100,
   //   },
   // },
+  moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
   testEnvironment: "node",
   transform: {
     "^.+\\.(js|jsx)$": [
@@ -35,8 +36,8 @@ const config = {
   testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
   moduleNameMapper: {
     // "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-    "^@/(.*)$": "<rootDir>/src/$1",
+    "^@/(.*)$": "<rootDir>/$1",
   },
 };
 
-export default config;
+// export default config;
