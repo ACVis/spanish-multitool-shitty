@@ -6,13 +6,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest",
+    "test": "jest --verbose --detectOpenHandles",
     "test:watch": "jest --watch"
   },
   "dependencies": {
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
     "next": "^13.4.19",
+    "nextjs-http-supertest": "^1.0.12",
+    "node-mocks-http": "^1.13.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
@@ -20,6 +22,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.22.5",
     "@babel/preset-env": "^7.22.9",
     "@babel/preset-react": "^7.22.5",
+    "@shelf/jest-mongodb": "^4.1.7",
     "@testing-library/jest-dom": "^6.0.1",
     "@testing-library/react": "^14.0.0",
     "babel-jest": "^29.6.2",

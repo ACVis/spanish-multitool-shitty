@@ -26,7 +26,7 @@ Copy code
 ```bash
 docker build -t flashcards-mongo .
 ```
-In this case, flashcards-mongo is the tag name you provided for the Docker image.
+In this case, **flashcards-mongo** is the tag name you provided for the Docker image.
 
 The docker run command uses this image to create and start a new container based on that image. The container will have the specified name (my-flashcards-mongo-container in this case), and the other options define how the container should run, such as port mapping and volume mounting.
 

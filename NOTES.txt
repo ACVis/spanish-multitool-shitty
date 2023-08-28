@@ -1,0 +1,3 @@
+First create an api that doesn't use mongodb. 
+Then get tests running succesfully. 
+Then Add in MongoDB, probably don't try to use node-mocks or supertest, use the next-api thing. 

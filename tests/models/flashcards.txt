@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Flashcard from "../src/models/Flashcard"; // Assuming the model is exported in this file
+import Flashcard from "../../models/flashcard"; // Assuming the model is exported in this file
 
 const flashcardData = {
   frontContent: "What is TDD?",
@@ -12,17 +12,18 @@ const flashcardData = {
 };
 
 describe("Flashcard Model Test", () => {
-  beforeAll(async () => {
-    await mongoose.connect(
-      process.env.MONGODB_URI,
-      { useNewUrlParser: true, useCreateIndex: true },
-      (err) => {
+  beforeAll(() => {
+    mongoose
+      .connect(`mongodb://localhost:27017`, {
+        useNewUrlParser: true,
+      })
+      .then(() => console.log("MongoDB connection established."))
+      .catch((err) => {
         if (err) {
-          console.error(err);
+          console.error(err.message);
           process.exit(1);
         }
-      }
-    );
+      });
   });
 
   it("should create & save flashcard successfully", async () => {

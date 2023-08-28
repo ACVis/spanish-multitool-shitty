@@ -1,10 +1,30 @@
 import mongoose from "mongoose";
 // import Flashcard from "../../models/flashcard";
+// import connection from "../../utils/connectToDb";
 
-mongoose.connect("mongodb://localhost:27017", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+console.log("NODE_ENV: ", process.env.NODE_ENV);
+
+const { MongoClient } = require("mongodb");
+
+let connection;
+// let db;
+
+if (process.env.NODE_ENV === "test") {
+  // connection = await MongoClient.connect(global.__MONGO_URI__, {
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true,
+  // });
+  // db = await connection.db();
+  mongoose.connect(global.__MONGO_URI__, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+} else {
+  connection = mongoose.connect("mongodb://localhost:27017", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+}
 
 // const flashcardSchema = new mongoose.Schema({
 //   question: {
@@ -34,6 +54,7 @@ if (mongoose.models.Flashcard) {
 } else {
   Flashcard = mongoose.model("Flashcard", flashcardSchema);
 }
+export { Flashcard };
 
 export default async function handler(req, res) {
   console.log("in handler");
@@ -53,7 +74,7 @@ export default async function handler(req, res) {
   }
 }
 
-async function handleGetFlashcards(req, res) {
+export async function handleGetFlashcards(req, res) {
   try {
     const flashcards = await Flashcard.find({});
     res.status(200).json(flashcards);
@@ -62,7 +83,7 @@ async function handleGetFlashcards(req, res) {
   }
 }
 
-async function handleCreateFlashcard(req, res) {
+export async function handleCreateFlashcard(req, res) {
   console.log("inside handleCreateFlashcard");
   const { question, answer } = req.body;
 
@@ -82,7 +103,7 @@ async function handleCreateFlashcard(req, res) {
   }
 }
 
-async function handleUpdateFlashcard(req, res) {
+export async function handleUpdateFlashcard(req, res) {
   const { id } = query;
   const { question, answer } = req.body;
 
@@ -107,7 +128,7 @@ async function handleUpdateFlashcard(req, res) {
   }
 }
 
-async function handleDeleteFlashcard(req, res) {
+export async function handleDeleteFlashcard(req, res) {
   const { id } = query;
 
   if (!id) {
