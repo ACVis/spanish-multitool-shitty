@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 // import Flashcard from "../../models/flashcard";
-import { connect } from "@/lib/connectToDb";
+// import { connect } from "@/lib/connectToDb";
+import connect from "@/lib/dbConnect";
 
 console.log("NODE_ENV: ", process.env.NODE_ENV);
 
