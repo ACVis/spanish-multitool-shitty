@@ -1,5 +1,5 @@
 {
-  "name": "flashcard-app-api",
+  "name": "flashcard-app",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -12,11 +12,11 @@
   "dependencies": {
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
-    "next": "^13.4.19",
+    "next": "^14.1.0",
     "nextjs-http-supertest": "^1.0.12",
     "node-mocks-http": "^1.13.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.22.5",
@@ -27,7 +27,7 @@
     "@testing-library/react": "^14.0.0",
     "babel-jest": "^29.6.2",
     "eslint": "^8.47.0",
-    "eslint-config-next": "^13.4.19",
+    "eslint-config-next": "^14.1.0",
     "eslint-plugin-jest": "^27.2.3",
     "eslint-plugin-react": "^7.33.2",
     "jest": "^29.6.2",
