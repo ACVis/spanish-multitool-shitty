@@ -1,8 +1,10 @@
+import react from "react";
 import { useState, useEffect } from "react";
 import fs from "fs";
+import path from "path";
 
-const frontTemplate = fs.readFileSync("path/to/frontTemplate.html", "utf8");
-const backTemplate = fs.readFileSync("path/to/backTemplate.html", "utf8");
+// const frontTemplate = fs.readFileSync("path/to/frontTemplate.html", "utf8");
+// const backTemplate = fs.readFileSync("path/to/backTemplate.html", "utf8");
 
 export const applyFrontTemplate = (content) =>
   frontTemplate.replace("{{content}}", content);
@@ -119,4 +121,19 @@ export default function FlashcardsPage() {
       </ul>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const frontTemplatePath = path.join(
+    process.cwd(),
+    "public/frontTemplate.html"
+  );
+  const backTemplatePath = path.join(process.cwd(), "public/backTemplate.html");
+
+  const frontTemplate = fs.readFileSync(frontTemplatePath, "utf8");
+  const backTemplate = fs.readFileSync(backTemplatePath, "utf8");
+
+  return {
+    props: { frontTemplate, backTemplate }, // will be passed to the page component as props
+  };
 }
