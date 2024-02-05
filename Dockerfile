@@ -1,11 +1,13 @@
-# Use an official MongoDB image as the base
-FROM mongo
+FROM node:latest
 
-# Set environment variables
-ENV MONGO_INITDB_DATABASE flashcards
+WORKDIR /app
 
-# Copy database initialization script
-COPY init-db.js /docker-entrypoint-initdb.d/
+COPY package*.json ./
 
-# Expose MongoDB port
-EXPOSE 27017
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]
