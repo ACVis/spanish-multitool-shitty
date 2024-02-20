@@ -1,16 +1,27 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global CSS variables */
+:root {
+    --color-twilight-light: #dbdfff; 
+    --color-flashcard-bg-light: #fff; 
+    --padding-flashcard: 1rem; 
+    --margin-flashcard-bottom: 1rem;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.custom-flashcard {
+    background-color: var(--color-flashcard-bg-light);
+    /* padding: var(--padding-flashcard); */
+    /* margin-bottom: var(--margin-flashcard-bottom); */
+    box-shadow: 0 0.25rem 1rem 0 #282e3e14;
+    transition: all .5s ease;
 }
 
-* {
-  box-sizing: border-box;
+.flashcard {
+    @apply custom-flashcard rounded-md flex flex-col justify-between max-w-6xl min-h-[29.25rem];
 }
+
+/* ::selection {
+    background: var(--color-twilight-light);
+} */
