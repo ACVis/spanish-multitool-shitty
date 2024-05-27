@@ -2,6 +2,8 @@ import react from "react";
 import { useState, useEffect } from "react";
 import fs from "fs";
 import path from "path";
+import Card from "@/components/Card";
+import { Center, Box, Button } from "@mantine/core";
 
 // const frontTemplate = fs.readFileSync("path/to/frontTemplate.html", "utf8");
 // const backTemplate = fs.readFileSync("path/to/backTemplate.html", "utf8");
@@ -26,7 +28,8 @@ export default function FlashcardsPage() {
         body: JSON.stringify({ question, answer }),
       });
       if (response.ok) {
-        console.log("Flashcard created successfully");
+        const newFlashcard = await response.json();
+        setFlashcards((prevFlashcards) => [...prevFlashcards, newFlashcard]);
         // Reset the input fields
         setQuestion("");
         setAnswer("");
@@ -39,12 +42,17 @@ export default function FlashcardsPage() {
   };
 
   const handleDeleteFlashcard = async (flashcardId) => {
+    console.log("inside handleDeleteFlashcard");
+    console.log("flashcardId: ", flashcardId);
     try {
       const response = await fetch(`/api/flashcards/${flashcardId}`, {
         method: "DELETE",
       });
       if (response.ok) {
         console.log("Flashcard deleted successfully");
+        setFlashcards((prevFlashcards) =>
+          prevFlashcards.filter((flashcard) => flashcard._id !== flashcardId)
+        );
       } else {
         console.error("Failed to delete flashcard");
       }
@@ -74,28 +82,31 @@ export default function FlashcardsPage() {
   return (
     <div>
       <h1>Flashcards</h1>
-
-      <form onSubmit={handleCreateFlashcard}>
-        <label>
-          Question:
-          <input
-            type="text"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Answer:
-          <input
-            type="text"
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-          />
-        </label>
-        <br />
-        <button type="submit">Create Flashcard</button>
-      </form>
+      <div className="flex items-center justify-center bg-slate-400 p-5 h-dvh w-dvw">
+        <form onSubmit={handleCreateFlashcard}>
+          <Card>
+            <label>
+              Question:
+              <input
+                type="text"
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+              />
+            </label>
+            <br />
+            <label>
+              Answer:
+              <input
+                type="text"
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+              />
+            </label>
+          </Card>
+          <br />
+          <button type="submit">Create Flashcard</button>
+        </form>
+      </div>
 
       {/* Fetch and display existing flashcards */}
       {/* Replace this code with your own logic to fetch flashcards from the API */}
@@ -107,14 +118,14 @@ export default function FlashcardsPage() {
             {flashcard.question} - {flashcard.answer}
             <pre>{JSON.stringify(flashcard)}</pre>
             <div>
-              <button
+              <Button
                 onClick={() => {
-                  console.log("Click");
+                  console.log("Clicked delete button");
                   handleDeleteFlashcard(flashcard._id);
                 }}
               >
                 Delete
-              </button>
+              </Button>
             </div>
           </li>
         ))}

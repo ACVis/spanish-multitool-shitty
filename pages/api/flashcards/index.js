@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === "test") {
   connection = connect;
 } else {
   connection = mongoose.connect("mongodb://localhost:27017", {
-    useNewUrlParser: true,
+    // useNewUrlParser: true,
     useUnifiedTopology: true,
   });
 }
@@ -59,11 +59,15 @@ if (mongoose.models.Flashcard) {
 export { Flashcard };
 
 export default async function handler(req, res) {
-  console.log("in handler");
+  console.log("Request received:", req.method, req.url); // Add this line
+
   const { method, body, query } = req;
+  console.log("body: ", body);
+  console.log("query: ", query);
 
   switch (method) {
     case "GET":
+      console.log("inside GET");
       return handleGetFlashcards(req, res);
     case "POST":
       return handleCreateFlashcard(req, res);
@@ -97,7 +101,12 @@ export async function handleCreateFlashcard(req, res) {
 
   try {
     console.log("creating new flashcard");
-    const newFlashcard = await Flashcard.create({ question, answer });
+    console.log(" ", question);
+    console.log(" ", answer);
+    const newFlashcard = await Flashcard.create({
+      frontHtml: question,
+      backHtml: answer,
+    });
     console.log(" ", newFlashcard);
     res.status(201).json(newFlashcard);
   } catch (error) {
@@ -132,6 +141,8 @@ export async function handleUpdateFlashcard(req, res) {
 
 export async function handleDeleteFlashcard(req, res) {
   const { id } = query;
+
+  console.log("query: ", query);
 
   if (!id) {
     return res.status(400).json({ message: "Flashcard ID is required" });
